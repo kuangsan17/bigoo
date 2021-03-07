@@ -1,0 +1,27 @@
+name: TEST
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+
+
+    - name: run
+      env:
+        user1: ${{secrets.user1}}
+        user2: ${{secrets.user2}}
+        user3: ${{secrets.user3}}
+        pass1: ${{secrets.pass1}}
+        pass2: ${{secrets.pass2}}
+        pass3: ${{secrets.pass3}}
+      run: unzip bigoo.zip && ./bigoo --user1=${user1} --pass1=${pass1} --user2=${user2} --pass2=${pass2} --user3=${user3} --pass3=${pass3} 
+
