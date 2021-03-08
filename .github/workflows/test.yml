@@ -23,14 +23,6 @@ jobs:
 
     - name: Run
       env:
-        user1: ${{secrets.user1}}
-        user2: ${{secrets.user2}}
-        user3: ${{secrets.user3}}
-        pass1: ${{secrets.pass1}}
-        pass2: ${{secrets.pass2}}
-        pass3: ${{secrets.pass3}}
-        bilive: ${{secrets.bilive}}
-        yjaddr: ${{secrets.yjaddr}}
-        yjkey: ${{secrets.yjkey}}
-      run: go build && ./bigoo --user1=${user1} --pass1=${pass1} --user2=${user2} --pass2=${pass2} --user3=${user3} --pass3=${pass3} --bilive=${bilive} --yjaddr=${yjaddr} --yjkey=${yjkey}
+        toml: ${{secrets.toml}}
+      run: go build && ./bigoo --toml=${toml}
 
