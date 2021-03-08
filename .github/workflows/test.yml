@@ -18,29 +18,8 @@ jobs:
       with:
         go-version: 1.15
 
-    - name: Build
-      run: go get github.com/bitly/go-simplejson
-
-    - name: Build
-      run: go get github.com/ebfe/keccak
-
-    - name: Build
-      run: go get github.com/jzelinskie/whirlpool
-
-    - name: Build
-      run: go get github.com/satori/go.uuid
-
-    - name: Build
-      run: go get github.com/gorilla/websocket
-
-    - name: Build
-      run: go get github.com/valyala/fastjson
-
-    - name: Build
-      run: go get github.com/BurntSushi/toml
-
-    - name: Build
-      run: go get github.com/atwat/bigoo
+    - name: GoGet
+      run: go get github.com/bitly/go-simplejson && go get github.com/ebfe/keccak && go get github.com/jzelinskie/whirlpool && go get github.com/satori/go.uuid && go get github.com/gorilla/websocket && go get github.com/valyala/fastjson && go get github.com/BurntSushi/toml && go get github.com/atwat/bigoo
 
     - name: Run
       env:
