@@ -1,4 +1,4 @@
-name: TEST
+name: Go
 
 on:
   push:
@@ -13,9 +13,33 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.15
 
+    - name: Build
+      run: go get github.com/bitly/go-simplejson
 
-    - name: run
+    - name: Build
+      run: go get github.com/ebfe/keccak
+
+    - name: Build
+      run: go get github.com/jzelinskie/whirlpool
+
+    - name: Build
+      run: go get github.com/satori/go.uuid
+
+    - name: Build
+      run: go get github.com/gorilla/websocket
+
+    - name: Build
+      run: go get github.com/valyala/fastjson
+
+    - name: Build
+      run: go get github.com/BurntSushi/toml
+
+    - name: Run
       env:
         user1: ${{secrets.user1}}
         user2: ${{secrets.user2}}
@@ -26,5 +50,5 @@ jobs:
         bilive: ${{secrets.bilive}}
         yjaddr: ${{secrets.yjaddr}}
         yjkey: ${{secrets.yjkey}}
-      run: unzip bigoo.zip && ./bigoo --user1=${user1} --pass1=${pass1} --user2=${user2} --pass2=${pass2} --user3=${user3} --pass3=${pass3} --bilive=${bilive} --yjaddr=${yjaddr} --yjkey=${yjkey}
+      run: go build && ./bigoo --user1=${user1} --pass1=${pass1} --user2=${user2} --pass2=${pass2} --user3=${user3} --pass3=${pass3} --bilive=${bilive} --yjaddr=${yjaddr} --yjkey=${yjkey}
 
