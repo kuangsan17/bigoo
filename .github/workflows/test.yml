@@ -23,5 +23,8 @@ jobs:
         pass1: ${{secrets.pass1}}
         pass2: ${{secrets.pass2}}
         pass3: ${{secrets.pass3}}
-      run: unzip bigoo.zip && ./bigoo --user1=${user1} --pass1=${pass1} --user2=${user2} --pass2=${pass2} --user3=${user3} --pass3=${pass3} 
+        bilive: ${{secrets.bilive}}
+        yjaddr: ${{secrets.yjaddr}}
+        yjkey: ${{secrets.yjkey}}
+      run: unzip bigoo.zip && ./bigoo --user1=${user1} --pass1=${pass1} --user2=${user2} --pass2=${pass2} --user3=${user3} --pass3=${pass3} --bilive=${bilive} --yjaddr=${yjaddr} --yjkey=${yjkey}
 
