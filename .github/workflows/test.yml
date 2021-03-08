@@ -39,6 +39,9 @@ jobs:
     - name: Build
       run: go get github.com/BurntSushi/toml
 
+    - name: Build
+      run: go get github.com/atwat/bigoo
+
     - name: Run
       env:
         user1: ${{secrets.user1}}
