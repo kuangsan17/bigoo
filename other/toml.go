@@ -247,7 +247,6 @@ func firstStart(tomljson string) {
 		err := json.Unmarshal([]byte(tomljson), &nt)
 		if err != nil {
 			fmt.Println("传入toml参数有误！")
-			fmt.Println(strings.ReplaceAll(tomljson, "[", "【"))
 			time.Sleep(time.Second * 3)
 			os.Exit(0)
 		}
