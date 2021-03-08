@@ -1,6 +1,7 @@
 package other
 
 import (
+	"encoding/json"
 	"fmt"
 	"os"
 	"time"
@@ -222,9 +223,9 @@ func (T *Btoml) relogin(k int) {
 
 var tomlFilePath string = "./bigoo.toml"
 
-func firstStart(userPass [][]string, bilive, yjaddr, yjkey string) {
+func firstStart(tomljson string) {
 	PutPayImg()
-	monitor := monitorInfo{bilive, yjaddr, yjkey, false, false}
+	monitor := monitorInfo{"", "", "", false, false}
 	setting := settingInfo{
 		lotteryInfo{100, 100, 100, 100, [2]int{90, 20}, 0, 661, 0, [][2]int{{163000, 170500}}},
 		true, true, true, true,
@@ -239,22 +240,24 @@ func firstStart(userPass [][]string, bilive, yjaddr, yjkey string) {
 	}
 	mail := mailInfo{wxserverInfo{""}, emailInfo{"", "", "", "smtp.qq.com", "465"}}
 	biliuser := []biliUserInfo{}
-	if len(userPass) != 0 {
-		for _, v := range userPass {
-			if len(v) != 2 {
-				continue
-			}
-			biliuser = append(biliuser, biliUserInfo{v[0], v[1], "", "", ""})
-		}
-	}
 	t := Btoml{monitor, setting, moresetting, mail, biliuser}
+	if tomljson != "" {
+		var nt Btoml
+		err := json.Unmarshal([]byte(tomljson), &nt)
+		if err != nil {
+			fmt.Println("传入toml参数有误！")
+			time.Sleep(time.Second * 3)
+			os.Exit(0)
+		}
+		t = nt
+	}
 	t.WriteToml()
 }
 
 //TomlStart return the struct of toml
-func TomlStart(userPass [][]string, bilive, yjaddr, yjkey string) *Btoml {
+func TomlStart(tomljson string) *Btoml {
 	if _, err := os.Stat(tomlFilePath); err != nil {
-		firstStart(userPass, bilive, yjaddr, yjkey)
+		firstStart(tomljson)
 	}
 	var config *Btoml
 	if _, err := toml.DecodeFile(tomlFilePath, &config); err != nil {
