@@ -12,29 +12,12 @@ import (
 )
 
 var (
-	user1    string
-	user2    string
-	user3    string
-	pass1    string
-	pass2    string
-	pass3    string
-	bilive   string
-	yjaddr   string
-	yjkey    string
-	userPass [][]string = [][]string{}
 	help     bool
+	tomljson string
 )
 
 func init() {
-	flag.StringVar(&user1, "user1", "", "用户1")
-	flag.StringVar(&user2, "user2", "", "用户2")
-	flag.StringVar(&user3, "user3", "", "用户3")
-	flag.StringVar(&pass1, "pass1", "", "密码1")
-	flag.StringVar(&pass2, "pass2", "", "密码2")
-	flag.StringVar(&pass3, "pass3", "", "密码3")
-	flag.StringVar(&bilive, "bilive", "", "bilive监控")
-	flag.StringVar(&yjaddr, "yjaddr", "", "yj监控addr")
-	flag.StringVar(&yjkey, "yjkey", "", "yj监控key")
+	flag.StringVar(&tomljson, "toml", "", "配置")
 	flag.BoolVar(&help, "h", false, "帮助")
 	flag.Usage = usage
 	flag.Parse()
@@ -42,16 +25,7 @@ func init() {
 		flag.Usage()
 		os.Exit(0)
 	}
-	if user1 != "" && pass1 != "" {
-		userPass = append(userPass, []string{user1, pass1})
-	}
-	if user2 != "" && pass2 != "" {
-		userPass = append(userPass, []string{user2, pass2})
-	}
-	if user3 != "" && pass3 != "" {
-		userPass = append(userPass, []string{user3, pass3})
-	}
-	//fmt.Println(userPass)
+
 }
 func usage() {
 	flag.PrintDefaults()
@@ -67,7 +41,7 @@ func main() {
     |下载后30分钟内删除|
      ------------------
 `)
-	t := other.TomlStart(userPass, bilive, yjaddr, yjkey)
+	t := other.TomlStart(tomljson)
 	Status := other.StatusStart(t)
 	go func() {
 		for {
